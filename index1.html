@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Learning Dashboard</title>
+  <style>
+    /* --- Global Styles --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f4f6f9;
+    }
+
+    /* --- Sidebar --- */
+    .sidebar {
+      width: 240px;
+      background: #2f3542;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 15px;
+      display: block;
+      border-radius: 8px;
+      margin: 6px 0;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #57606f;
+    }
+
+    /* --- Main Content --- */
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    /* --- Top Navbar --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .navbar h1 {
+      font-size: 1.5rem;
+      color: #2f3542;
+    }
+    .navbar input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* --- Dashboard Cards --- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .progress-bar {
+      width: 100%;
+      background: #e0e0e0;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 10px;
+      background: #1e90ff;
+      width: 0%;
+    }
+
+    /* --- Course List --- */
+    .courses {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .courses h2 {
+      margin-bottom: 15px;
+    }
+    .course {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .course:last-child {
+      border-bottom: none;
+    }
+    .course button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #1e90ff;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .course button:hover {
+      background: #3742fa;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <a href="#">🏠 Home</a>
+    <a href="#">📚 My Courses</a>
+    <a href="#">📈 Progress</a>
+    <a href="#">📝 Assignments</a>
+    <a href="#">⚙️ Settings</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Navbar -->
+    <div class="navbar">
+      <h1>Welcome, Student 👋</h1>
+      <input type="text" placeholder="Search...">
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+      <div class="card">
+        <h3>Overall Progress</h3>
+        <div class="progress-bar"><div class="progress" id="overallProgress"></div></div>
+        <p id="progressText">0%</p>
+      </div>
+      <div class="card">
+        <h3>Completed Courses</h3>
+        <p><strong id="completedCourses">0</strong>/5</p>
+      </div>
+      <div class="card">
+        <h3>Assignments Due</h3>
+        <p><strong id="assignments">3</strong></p>
+      </div>
+    </div>
+
+    <!-- Courses -->
+    <div class="courses">
+      <h2>My Courses</h2>
+      <div class="course">
+        <span>Java Programming</span>
+        <button onclick="completeCourse('Java Programming')">Mark Complete</button>
+      </div>
+      <div class="course">
+        <span>Database Management</span>
+        <button onclick="completeCourse('Database Management')">Mark Complete</button>
+      </div>
+      <div class="course">
+        <span>Reasoning & Aptitude</span>
+        <button onclick="completeCourse('Reasoning & Aptitude')">Mark Complete</button>
+      </div>
+      <div class="course">
+        <span>English Communication</span>
+        <button onclick="completeCourse('English Communication')">Mark Complete</button>
+      </div>
+      <div class="course">
+        <span>Web Development</span>
+        <button onclick="completeCourse('Web Development')">Mark Complete</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Dashboard JS ---
+    let completed = 0;
+    const totalCourses = 5;
+
+    function updateProgress() {
+      const progress = (completed / totalCourses) * 100;
+      document.getElementById("overallProgress").style.width = progress + "%";
+      document.getElementById("progressText").innerText = Math.round(progress) + "%";
+      document.getElementById("completedCourses").innerText = completed;
+    }
+
+    function completeCourse(courseName) {
+      if (completed < totalCourses) {
+        completed++;
+        alert(courseName + " marked as completed!");
+        updateProgress();
+      }
+    }
+
+    updateProgress(); // initialize
+  </script>
+</body>
+</html>
